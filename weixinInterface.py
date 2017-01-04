@@ -35,4 +35,12 @@ class WeixinInterface:
 		# if the request is from wechar ,then reply echostr
 		if hashcode == signature:
 			return echostr
+	def POST(self):
+		str_xml = web.data() # get the data from post
+		xml = etree.fromstring(str_xml) # XML process
+		content = xml.find("Content").text # get the content user input
+		msgType = xml.find("MsgType").text
+		fromUser = xml.find("FromUserName").text
+		toUser = xml.find("ToUserName").text
+		return self.render.reply_text(fromUser,toUser,int(time.time()),u"it is develeping, nothing more function, you just said: " + content)
 
